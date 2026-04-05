@@ -21,14 +21,39 @@ function addBookToLibrary(title, author, numPages, ifRead) {
 	myLibrary.push(newBook);
 }
 
-// addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
+function displayBooks(myLibrary) {
+	let books = '';
+	for (let i = 0; i < myLibrary.length; i++) {
+		const { title, author, numPages, ifRead } = myLibrary[i];
+		// console.log(title);
+		// console.log(author);
+		// console.log(numPages);
+		// console.log(ifRead);
+		const html = `
+		<div className="book">
+			<p>${title}</p>
+			<p>by ${author}</p>
+			<p>${numPages} pages</p>
+			<p>${ifRead}</p>
+		</div>
+		`;
+		books += html;
+	}
+	// console.log(books);
+
+	document.querySelector(".library").innerHTML = books;
+}
+
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
 // console.log(myLibrary);
 // console.log(myLibrary[0].info());
 
-// addBookToLibrary("Harry Potter", "J.K. Rowling", 500, true);
+addBookToLibrary("Harry Potter", "J.K. Rowling", 500, true);
 // console.log(myLibrary);
 // console.log(myLibrary[0].info());
 // console.log(myLibrary[1].info());
+
+displayBooks(myLibrary);
 
 // const theHobbit = new Book(crypto.randomUUID(), "The Hobbit", "J.R.R. Tolkien", 295, false);
 
