@@ -34,7 +34,9 @@ function displayBooks(myLibrary) {
 			<p>${title}</p>
 			<p>by ${author}</p>
 			<p>${numPages} pages</p>
-			<p>${ifRead ? "Read" : "Not Read yet"}</p>
+			<button class="toggle-read">
+				${ifRead ? "Read" : "Not Read"}
+			</button>
 
 			<button class="delete-button">Delete</button>
 		</div>
@@ -85,27 +87,15 @@ newBookForm.addEventListener('submit', (e) => {
 document.querySelector(".library").addEventListener("click", (e) => {
 	const book = e.target.closest(".book");
 	const id = book.dataset.id;
-	console.log(book);
-	console.log(id);
 
-	myLibrary = myLibrary.filter(book => book.id !== id);
+	if(e.target.classList.contains("delete-button")) {
+		myLibrary = myLibrary.filter(book => book.id !== id);
+		displayBooks(myLibrary);
+	}
 
-	displayBooks(myLibrary);
+	if (e.target.classList.contains("toggle-read")) {
+		const readBook = myLibrary.find(book => book.id === id);
+		readBook.ifRead = !readBook.ifRead;
+		displayBooks(myLibrary);
+	}
 })
-// let submitBtn = document.querySelector(".submit-new-book");
-// submitBtn.addEventListener("click", addNewBook());
-
-// addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
-// console.log(myLibrary);
-// console.log(myLibrary[0].info());
-
-// addBookToLibrary("Harry Potter", "J.K. Rowling", 500, true);
-// console.log(myLibrary);
-// console.log(myLibrary[0].info());
-// console.log(myLibrary[1].info());
-
-// displayBooks(myLibrary);
-
-// const theHobbit = new Book(crypto.randomUUID(), "The Hobbit", "J.R.R. Tolkien", 295, false);
-
-// console.log(theHobbit.info());
