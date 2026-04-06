@@ -30,11 +30,11 @@ function displayBooks(myLibrary) {
 		// console.log(numPages);
 		// console.log(ifRead);
 		const html = `
-		<div className="book">
+		<div class="book">
 			<p>${title}</p>
 			<p>by ${author}</p>
 			<p>${numPages} pages</p>
-			<p>${ifRead}</p>
+			<p>${ifRead ? "Read" : "Not Read yet"}</p>
 		</div>
 		`;
 		books += html;
@@ -44,16 +44,54 @@ function displayBooks(myLibrary) {
 	document.querySelector(".library").innerHTML = books;
 }
 
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
+let modal = document.getElementById("new-book-modal");
+let newBookBtn = document.getElementById("new-book");
+let modalCloseBtn = document.querySelector(".close");
+
+newBookBtn.onclick = function() {
+	modal.style.display = "block";
+}
+
+modalCloseBtn.onclick = function() {
+	modal.style.display = "none";
+}
+
+window.onclick = function(e) {
+	if (e.target === modal) {
+		modal.style.display = "none";
+	}
+}
+
+const newBookForm = document.getElementById('new-book-form');
+newBookForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+
+	const data = new FormData(newBookForm);
+	const title = data.get('title');
+	const author = data.get('author');
+	const numPages = data.get('num-pages');
+	const ifRead = data.get('if-read') === 'on';
+
+	addBookToLibrary(title, author, numPages, ifRead);
+
+	displayBooks(myLibrary);
+	
+	modal.style.display = 'none';
+	newBookForm.reset();
+})
+// let submitBtn = document.querySelector(".submit-new-book");
+// submitBtn.addEventListener("click", addNewBook());
+
+// addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
 // console.log(myLibrary);
 // console.log(myLibrary[0].info());
 
-addBookToLibrary("Harry Potter", "J.K. Rowling", 500, true);
+// addBookToLibrary("Harry Potter", "J.K. Rowling", 500, true);
 // console.log(myLibrary);
 // console.log(myLibrary[0].info());
 // console.log(myLibrary[1].info());
 
-displayBooks(myLibrary);
+// displayBooks(myLibrary);
 
 // const theHobbit = new Book(crypto.randomUUID(), "The Hobbit", "J.R.R. Tolkien", 295, false);
 

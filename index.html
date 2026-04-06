@@ -8,6 +8,34 @@
 	<script src="script.js" defer></script>
 </head>
 <body>
-	
+	<div class="library">
+	</div>
+
+	<button id="new-book">&#43; New Book</button>
+	<div id="new-book-modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<form id="new-book-form">
+				<label for="title">Title of Book</label>
+				<input type="text" id="title" name="title">
+				<br/>
+
+				<label for="author">Author</label>
+				<input type="text" id="author" name="author">
+				<br/>
+
+				<label for="num-pages">Number of Pages</label>
+				<input type="text" id="num-pages" name="num-pages">
+				<br/>
+
+				<label for="if-read">Read?</label>
+				<input type="checkbox" id="if-read" name="if-read">
+				<br/>
+
+				<button type="submit" class="submit-new-book">Submit</button>
+			</form>
+		</div>
+	</div>
+
 </body>
 </html>
