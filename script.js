@@ -24,17 +24,19 @@ function addBookToLibrary(title, author, numPages, ifRead) {
 function displayBooks(myLibrary) {
 	let books = '';
 	for (let i = 0; i < myLibrary.length; i++) {
-		const { title, author, numPages, ifRead } = myLibrary[i];
+		const { id, title, author, numPages, ifRead } = myLibrary[i];
 		// console.log(title);
 		// console.log(author);
 		// console.log(numPages);
 		// console.log(ifRead);
 		const html = `
-		<div class="book">
+		<div class="book" data-id="${id}">
 			<p>${title}</p>
 			<p>by ${author}</p>
 			<p>${numPages} pages</p>
 			<p>${ifRead ? "Read" : "Not Read yet"}</p>
+
+			<button class="delete-button">Delete</button>
 		</div>
 		`;
 		books += html;
@@ -78,6 +80,17 @@ newBookForm.addEventListener('submit', (e) => {
 	
 	modal.style.display = 'none';
 	newBookForm.reset();
+})
+
+document.querySelector(".library").addEventListener("click", (e) => {
+	const book = e.target.closest(".book");
+	const id = book.dataset.id;
+	console.log(book);
+	console.log(id);
+
+	myLibrary = myLibrary.filter(book => book.id !== id);
+
+	displayBooks(myLibrary);
 })
 // let submitBtn = document.querySelector(".submit-new-book");
 // submitBtn.addEventListener("click", addNewBook());
